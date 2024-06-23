@@ -27,7 +27,7 @@ class Cronus {
     }
 
     if (data.intent === "greetings") {
-      const greet = "Hi!";
+      const greet = "Hello, listening!";
       //   alert(greet);
       this.speech.text = greet;
       window.speechSynthesis.speak(this.speech);
