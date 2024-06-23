@@ -7,7 +7,7 @@ class Cronus {
   act(data) {
     if (data.intent === "None") {
       //   alert("I cant understant.");
-      this.speech.text = "I cant understant.";
+      this.speech.text = "Sorry, i cant understant.";
       window.speechSynthesis.speak(this.speech);
       return;
     }
@@ -27,9 +27,8 @@ class Cronus {
     }
 
     if (data.intent === "greetings") {
-      const greet = "Hello, listening!";
-      //   alert(greet);
-      this.speech.text = greet;
+      const greetings = ['Hello', 'Hi'];
+      this.speech.text = greetings[Math.round(Math.random(greetings.length - 1))];
       window.speechSynthesis.speak(this.speech);
       return;
     }

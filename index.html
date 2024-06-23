@@ -26,7 +26,7 @@
       }
 
       form {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         position: relative;
@@ -72,6 +72,13 @@
   <script src="./js/config.js"></script>
   <script>
     let listening = false;
+    
+    const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+
+          recognition.lang = 'en-US';
+          recognition.interimResults = false;
+          recognition.continuous = false;
+   
     async function getIntent(text) {
       const res = await fetch(api_url + "/chatbot/chat", {
         method: "POST",
@@ -94,47 +101,34 @@
       getIntent(text);
       document.getElementById("inp-text").value = "";
     });
+    
+    let text = '';
+    
+    recognition.onresult = e => {
+            text = e.results[0][0].transcript;
+         getIntent(text)
+          };
+          
+          recognition.onstart = () => {
+                console.log('Reconhecimento de voz iniciado...');
+            };
+            
+            recognition.onend = () => {
+                document.querySelector(".logo h1").style.color = "#ddd";
+            };
+          
+    recognition.onerror = (error) => {
+      console.log(error)
+      alert(error)
+    }
+    
 
     document.querySelector("body").ondblclick = (e) => {
-      if (listening) {
-        return;
-      }
-
-      listening = true;
       document.querySelector(".logo h1").style.color = "cornflowerblue";
-      getIntent("hi");
 
-      setTimeout(() => {
-        document.querySelector(".logo h1").style.color = "#ddd";
         listening = false;
 
-        let text = "time";
-
-        try {
-          window.SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
-
-          const recognition = new window.SpeechRecognition();
-
-          recognition.interimResults = true;
-
-          recognition.addEventListener("result", (e) => {
-            text = Array.from(e.results)
-              .map((result) => result[0])
-              .map((result) => result.transcript)
-              .join('');
-
-            console.log(text);
-          });
-
-          recognition.start();
-
-          getIntent(text);
-        } catch (err) {
-          console.log(err);
-          alert(err);
-        }
-      }, 7000);
-    };
+        recognition.start();
+    }
   </script>
 </html>
