@@ -109,7 +109,7 @@
         document.querySelector(".logo h1").style.color = "#ddd";
         listening = false;
 
-        let text = "";
+        let text = "time";
 
         try {
           window.SpeechRecognition =
@@ -123,7 +123,7 @@
             text = Array.from(e.results)
               .map((result) => result[0])
               .map((result) => result.transcript)
-              .join("");
+              .join('');
 
             console.log(text);
           });
