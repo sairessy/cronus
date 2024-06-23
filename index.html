@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRONUS</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        width: fit-content;
+      }
+
+      h1 {
+        color: #ddd;
+        font-family: arial;
+        /* font-size: 72px; */
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: none;
+      }
+
+      form input {
+        padding: 15px 25px;
+      }
+
+      form input {
+        /* width: 320px; */
+        border-radius: 25px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 2px 1px #ddd;
+        outline: none;
+      }
+
+      form input:focus {
+        border-color: cornflowerblue;
+      }
+
+      form button {
+        position: absolute;
+        background-color: cornflowerblue;
+        color: #fff;
+        right: 20px;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo">
+      <h1>CRONUS</h1>
+      <form id="form-chat">
+        <input id="inp-text" type="text" placeholder="" />
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </body>
+  <script src="./js/Cronus.js"></script>
+  <script src="./js/config.js"></script>
+  <script>
+    let listening = false;
+    async function getIntent(text) {
+      const res = await fetch(api_url + "/chatbot/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          bot: "cronus",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        new Cronus().act(data);
+      }
+    }
+
+    document.getElementById("form-chat").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = document.getElementById("inp-text").value;
+      getIntent(text);
+      document.getElementById("inp-text").value = "";
+    });
+
+    document.querySelector("body").ondblclick = (e) => {
+      if (listening) {
+        return;
+      }
+
+      listening = true;
+      document.querySelector(".logo h1").style.color = "cornflowerblue";
+      getIntent("hi");
+
+      setTimeout(() => {
+        document.querySelector(".logo h1").style.color = "#ddd";
+        listening = false;
+
+        let text = "";
+
+        try {
+          window.SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+
+          const recognition = new window.SpeechRecognition();
+
+          recognition.interimResults = true;
+
+          recognition.addEventListener("result", (e) => {
+            text = Array.from(e.results)
+              .map((result) => result[0])
+              .map((result) => result.transcript)
+              .join("");
+
+            console.log(text);
+          });
+
+          recognition.start();
+
+          getIntent(text);
+        } catch (err) {
+          console.log(err);
+          alert(err);
+        }
+      }, 5000);
+    };
+  </script>
+</html>
