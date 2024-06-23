@@ -1,33 +1,31 @@
 class Cronus {
   constructor() {
     this.speech = new SpeechSynthesisUtterance();
-    this.speech.lang = "en";
+    this.speech.lang = "pt";
   }
 
   act(data) {
     if (data.intent === "None") {
-      //   alert("I cant understant.");
-      this.speech.text = "Sorry, i cant understant.";
+      this.speech.text = "Desculpa, não entendi.";
       window.speechSynthesis.speak(this.speech);
       return;
     }
 
     if (data.intent === "show.time") {
       const time = new Date().toLocaleTimeString("en-GB");
-      //   alert(time);
       this.speech.text = time;
       window.speechSynthesis.speak(this.speech);
       return;
     }
 
     if (data.intent === "show.wether") {
-      this.speech.text = "I cant do it now?";
-      window.speechSynthesis.speak(this.speech);
+      this.speech.text = "Poderei fazer isso em breve?";
+      window.speechSynthesis.sypeak(this.speech);
       return;
     }
 
     if (data.intent === "greetings") {
-      const greetings = ['Hello', 'Hi'];
+      const greetings = ['Oi', 'Olá'];
       this.speech.text = greetings[Math.round(Math.random(greetings.length - 1))];
       window.speechSynthesis.speak(this.speech);
       return;
