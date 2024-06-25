@@ -2,39 +2,55 @@ class Cronus {
   constructor() {
     this.speech = new SpeechSynthesisUtterance();
     this.speech.lang = "pt";
+    this.speak = (param) => {
+      window.speechSynthesis.speak(param);
+    };
   }
 
   act(data) {
     if (data.intent === "None") {
       this.speech.text = "Desculpa, não entendi.";
-      window.speechSynthesis.speak(this.speech);
+      this.speak(this.speech);
       return;
     }
 
     if (data.intent === "show.time") {
-      const time = new Date().toLocaleTimeString("en-GB");
+      const time = new Date().toLocaleTimeString('pt');
       this.speech.text = time;
-      window.speechSynthesis.speak(this.speech);
+      this.speak(this.speech);
       return;
     }
 
     if (data.intent === "show.wether") {
-      this.speech.text = "Poderei fazer isso em breve?";
-      window.speechSynthesis.sypeak(this.speech);
+      this.speech.text = "Poderei fazer isso em breve!";
+      this.speak(this.speech);
       return;
     }
 
     if (data.intent === "greetings") {
-      const greetings = ['Oi', 'Olá'];
-      this.speech.text = greetings[Math.round(Math.random(greetings.length - 1))];
-      window.speechSynthesis.speak(this.speech);
+      const greetings = ["Oi", "Olá"];
+      this.speech.text =
+        greetings[Math.round(Math.random(greetings.length - 1))];
+      this.speak(this.speech);
       return;
     }
 
     if (data.intent === "thanks") {
-        this.speech.text = data.answer;
-        window.speechSynthesis.speak(this.speech);
-        return;
-      }
+      this.speech.text = data.answer;
+      this.speak(this.speech);
+      return;
+    }
+
+    if (data.intent === "tell.joke") {
+      this.speech.text = "Brevemente serei capaz de contar piadas.";
+      this.speak(this.speech);
+      return;
+    }
+
+    if (data.intent === "play.music") {
+      this.speech.text = "Brevemente serei capaz de tocar músicas.";
+      this.speak(this.speech);
+      return;
+    }
   }
 }
