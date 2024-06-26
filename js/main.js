@@ -28,7 +28,7 @@ window.addEventListener("load", (e) => {
     setTimeout(() => {
       document.querySelector(".logo h1").style.color = colors.primary;
       recognition.start();
-    }, 10000);
+    }, 12000);
   };
 
   recognition.onerror = (err) => {
