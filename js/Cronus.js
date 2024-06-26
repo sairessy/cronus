@@ -126,10 +126,22 @@ class Cronus {
     }
   }
 
-  sendMsg(text) {
+  async sendMsg(text) {
     const data = { contact: this.contact, text };
-    alert(JSON.stringify(data));
     this.speech.text = `Enviei uma mensagem a ${data.contact.name}' com o conteudo: ${data.text}`;
     this.speak(this.speech);
+    const res = await fetch(api_url + "/chatbot/send-msg", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        user: "Sairesse",
+      },
+      body: JSON.stringify(data),
+    });
+  
+    if (res.status === 200) {
+      const d = await res.json();
+      console.log(d);
+    }
   }
 }
