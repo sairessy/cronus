@@ -8,9 +8,11 @@ window.addEventListener("load", (e) => {
   wakeupAPI();
   recognition = new webkitSpeechRecognition() || new SpeechRecognition();
   recognition.interimResults = false;
-  recognition.continuous = true;
+  recognition.continuous = false;
 
   recognition.start();
+  
+  document.querySelector('.logo h1').style.color = '#aaa';
 
   recognition.onresult = (e) => {
     text = e.results[0][0].transcript;
@@ -24,11 +26,6 @@ window.addEventListener("load", (e) => {
   recognition.onend = () => {
     console.log("Ended trying to recognize");
     document.querySelector(".logo h1").style.color = "#aaa";
-
-    setTimeout(() => {
-      document.querySelector(".logo h1").style.color = colors.primary;
-      recognition.start();
-    }, 12000);
   };
 
   recognition.onerror = (err) => {
