@@ -16,7 +16,6 @@ document.querySelector("body").ondblclick = (e) => {
 
   recognition.onresult = (e) => {
     text = e.results[0][0].transcript;
-    document.getElementById("text").innerHTML = text;
     getIntent(text);
   };
   
