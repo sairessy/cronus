@@ -117,13 +117,15 @@ class Cronus {
         this.speak(this.speech);
 
         this.aboutToSendMsg = true;
+        this.contact = cts[0];
         recognition.start();
       }
       return;
     }
   }
-  
-  sendMsg() {
-    alert("Sending...");
+
+  sendMsg(text) {
+    const data = { contact: this.contact, text };
+    alert(JSON.stringify(data));
   }
 }

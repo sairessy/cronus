@@ -17,7 +17,7 @@ document.querySelector("body").ondblclick = (e) => {
     if(!cronus.aboutToSendMsg) {
       getIntent(text);
     } else {
-      cronus.sendMsg();
+      cronus.sendMsg(text);
     }
   };
   
