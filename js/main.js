@@ -28,10 +28,12 @@ document.querySelector("body").ondblclick = (e) => {
   recognition.onend = () => {
     console.log("Ended trying to recognize");
     document.querySelector(".logo h1").style.color = "#aaa";
+    cronus.aboutToSendMsg = false;
   };
   
   recognition.onerror = (err) => {
     console.log(err);
+    cronus.aboutToSendMsg = false;
   };
   
 };

@@ -116,9 +116,11 @@ class Cronus {
         this.speech.text = `Caso deseje enviar uma mensagem para ${cts[0].name}, diga a mensagem após o BIP`;
         this.speak(this.speech);
 
-        this.aboutToSendMsg = true;
-        this.contact = cts[0];
-        recognition.start();
+        setTimeout(() => {
+          this.aboutToSendMsg = true;
+          this.contact = cts[0];
+          recognition.start();
+        }, 5000);
       }
       return;
     }
