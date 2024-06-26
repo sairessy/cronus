@@ -1,10 +1,8 @@
+const cronus = new Cronus();
 let listening = false;
 let text = "";
 
 wakeupAPI();
-const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-recognition.interimResults = false;
-recognition.continuous = false;
 
 
 document.querySelector("body").ondblclick = (e) => {
@@ -16,7 +14,11 @@ document.querySelector("body").ondblclick = (e) => {
 
   recognition.onresult = (e) => {
     text = e.results[0][0].transcript;
-    getIntent(text);
+    if(!cronus.aboutToSendMsg) {
+      getIntent(text);
+    } else {
+      cronus.sendMsg();
+    }
   };
   
   recognition.onstart = () => {
@@ -53,6 +55,6 @@ async function getIntent(text) {
 
   if (res.status === 200) {
     const data = await res.json();
-    new Cronus().act(data);
+    cronus.act(data);
   }
 }

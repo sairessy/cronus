@@ -1,5 +1,6 @@
 class Cronus {
   constructor() {
+    this.aboutToSendMsg = false;
     this.speech = new SpeechSynthesisUtterance();
     this.speech.lang = "pt";
     this.speak = (param) => {
@@ -71,7 +72,6 @@ class Cronus {
       const music = musics[pos];
       this.audio.src = music.src;
       this.audio.play();
-      this.audio.pause();
       document.getElementById(
         "text"
       ).innerHTML = `Tocando <span>${music.title}</span> de <span>${music.author}</span>`;
@@ -115,8 +115,15 @@ class Cronus {
         console.log(cts);
         this.speech.text = `Caso deseje enviar uma mensagem para ${cts[0].name}, diga a mensagem após o BIP`;
         this.speak(this.speech);
+
+        this.aboutToSendMsg = true;
+        recognition.start();
       }
       return;
     }
+  }
+  
+  sendMsg() {
+    alert("Sending...");
   }
 }
