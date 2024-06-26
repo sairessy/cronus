@@ -120,7 +120,7 @@ class Cronus {
           this.aboutToSendMsg = true;
           this.contact = cts[0];
           recognition.start();
-        }, 5000);
+        }, 10000);
       }
       return;
     }
