@@ -84,6 +84,7 @@ class Cronus {
       try {
         this.audio.pause();
         this.audio.currentTime = 0;
+        document.getElementById("text").innerHTML = "";
       } catch (error) {
         console.log("Erro ao pausar.");
         console.log(error);
@@ -138,7 +139,7 @@ class Cronus {
       },
       body: JSON.stringify(data),
     });
-  
+
     if (res.status === 200) {
       const d = await res.json();
       console.log(d);
