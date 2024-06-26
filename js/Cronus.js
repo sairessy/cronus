@@ -120,7 +120,7 @@ class Cronus {
           this.aboutToSendMsg = true;
           this.contact = cts[0];
           recognition.start();
-        }, 10000);
+        }, 15000);
       }
       return;
     }
@@ -129,5 +129,7 @@ class Cronus {
   sendMsg(text) {
     const data = { contact: this.contact, text };
     alert(JSON.stringify(data));
+    this.speech.text = `Enviei uma mensagem a ${data.contact.name}' com o conteudo: ${data.text}`;
+    this.speak(this.speech);
   }
 }
