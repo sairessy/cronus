@@ -5,8 +5,8 @@ class Cronus {
     this.speak = (param) => {
       window.speechSynthesis.speak(param);
     };
-    this.audio = new Audio('');
-    this.audio.id = 'audiox';
+    this.audio = new Audio("");
+    this.audio.id = "audiox";
     this.audio.onended = async () => {
       document.getElementById("text").innerHTML = "";
 
@@ -24,7 +24,6 @@ class Cronus {
   }
 
   async act(data) {
-    
     if (data.intent === "None") {
       this.speech.text = "Desculpa, não entendi.";
       this.speak(this.speech);
@@ -87,34 +86,35 @@ class Cronus {
         this.audio.currentTime = 0;
       } catch (error) {
         console.log("Erro ao pausar.");
-        console.log(error)
+        console.log(error);
       }
+      return;
+    }
 
-      if (data.intent === "send.msg") {
-        const contacts = await getUserContacts();
-        const splited = data.utterance.split(" ");
-        const cts = [];
+    if (data.intent === "send.msg") {
+      const contacts = await getUserContacts();
+      const splited = data.utterance.split(" ");
+      const cts = [];
 
-        for (let contact of contacts) {
-          for (let s of splited) {
-            if (
-              contact.name.toLowerCase().includes(s.toLowerCase()) &
-              (s.length > 3)
-            ) {
-              console.log(contact, s);
-              cts.push(contact);
-            }
+      for (let contact of contacts) {
+        for (let s of splited) {
+          if (
+            contact.name.toLowerCase().includes(s.toLowerCase()) &
+            (s.length > 3)
+          ) {
+            console.log(contact, s);
+            cts.push(contact);
           }
         }
+      }
 
-        if (cts.length === 0) {
-          this.speech.text = "Não tens tal contacto na sua lista.";
-          this.speak(this.speech);
-        } else {
-          console.log(cts);
-          this.speech.text = `Caso deseje enviar uma mensagem para ${cts[0].name}, diga a mensagem após o BIP`;
-          this.speak(this.speech);
-        }
+      if (cts.length === 0) {
+        this.speech.text = "Não tens tal contacto na sua lista.";
+        this.speak(this.speech);
+      } else {
+        console.log(cts);
+        this.speech.text = `Caso deseje enviar uma mensagem para ${cts[0].name}, diga a mensagem após o BIP`;
+        this.speak(this.speech);
       }
       return;
     }
