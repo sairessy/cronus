@@ -4,21 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRONUS</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <div class="logo">
-      <h1>CRONUS</h1>
-      <form id="form-chat">
-        <input id="inp-text" type="text" placeholder="" />
-        <button type="submit">OK</button>
-      </form>
-    </div>
+    <header>
+      <button id="btn-bars">
+        <img width="25" height="25" src="./assets/bars-solid.svg" alt="bars">
+      </button>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Dashboard</a>
+        <a href="#">Configurações</a>
+        <a href="#">Contactos</a>
+      </nav>
+    </header>
+    <main>
+      <div class="logo">
+        <h1>CRONUS</h1>
+        <form id="form-chat">
+          <input id="inp-text" type="text" placeholder="Seu texto..." />
+          <button type="submit">OK</button>
+        </form>
+      </div>
+      <p id="text"></p>
+    </main>
     <div id="loader">
       <p>Loading...</p>
     </div>
+    <footer>
+      <p>Olá, eu sou CRONUS e tenho o intuito de automatizar tarefas para si.</p>
+      <p>CRONUS &copy; 2024</p>
+    </footer>
   </body>
-  <script src="./js/Cronus.js"></script>
   <script src="./js/config.js"></script>
+  <script src="./js/util.js"></script>
+  <script src="./js/Cronus.js"></script>
   <script src="./js/main.js"></script>
 </html>
