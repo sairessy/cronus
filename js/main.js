@@ -33,7 +33,8 @@ recognition.onerror = (err) => {
 };
 
 setInterval(() => {
-  if (!listening) {
+  if (!listening && api_on) {
+    console.log('L &', api_on)
     recognition.start();
     document.querySelector(".logo h1").style.color = colors.primary;
     listening = true;
@@ -43,7 +44,7 @@ setInterval(() => {
 document.querySelector("body").ondblclick = (e) => {
   document.querySelector(".logo h1").style.color = colors.primary;
 
-  if (!listening) {
+  if (!listening && api_on) {
     recognition.start();
   } else {
     return;

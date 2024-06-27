@@ -27,8 +27,9 @@ const getUserContacts = async () => {
   ];
 };
 
+let api_on = false;
+
 async function wakeupAPI() {
-  let api_on = false;
 
   let num_fails = 0;
 
