@@ -59,16 +59,21 @@ class Cronus {
     }
 
     if (data.intent === "tell.joke") {
-      this.speech.text = "Brevemente serei capaz de contar piadas.";
+      this.speech.text = "Brevemente serei capaz de contar anedotas.";
       this.speak(this.speech);
       return;
     }
 
     if (data.intent === "play.music") {
-      this.speech.text = "Tocando uma música.";
+      if (!this.audio.paused) {
+        this.speech.text = "Tocando outra música.";
+      } else {
+        this.speech.text = "Tocando uma música.";
+      }
+
       this.speak(this.speech);
       const musics = await getMusics();
-      const pos = 0;
+      const pos = Math.round(Math.random() * (musics.length - 1));
       const music = musics[pos];
       this.audio.src = music.src;
       this.audio.play();
@@ -117,10 +122,13 @@ class Cronus {
         this.speech.text = `Caso deseje enviar uma mensagem para ${cts[0].name}, diga a mensagem após o BIP`;
         this.speak(this.speech);
 
+        listening = true;
+
         setTimeout(() => {
           this.aboutToSendMsg = true;
           this.contact = cts[0];
           recognition.start();
+          listening = false;
         }, 15000);
       }
       return;

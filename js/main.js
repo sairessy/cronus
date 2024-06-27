@@ -4,38 +4,52 @@ let text = "";
 
 wakeupAPI();
 
+recognition.onresult = (e) => {
+  document.querySelector(".logo h1").style.color = "#aaa";
+  text = e.results[0][0].transcript;
+  if (!cronus.aboutToSendMsg) {
+    getIntent(text);
+  } else {
+    cronus.sendMsg(text);
+  }
+};
+
+recognition.onstart = () => {
+  console.log("Reconhecimento de voz iniciado...");
+};
+
+recognition.onend = () => {
+  console.log("Ended trying to recognize");
+  listening = false;
+  document.querySelector(".logo h1").style.color = "#aaa";
+  cronus.aboutToSendMsg = false;
+};
+
+recognition.onerror = (err) => {
+  console.log(err);
+  cronus.aboutToSendMsg = false;
+  listening = false;
+  document.querySelector(".logo h1").style.color = "#aaa";
+};
+
+setInterval(() => {
+  if (!listening) {
+    recognition.start();
+    document.querySelector(".logo h1").style.color = colors.primary;
+    listening = true;
+  }
+}, 15000);
 
 document.querySelector("body").ondblclick = (e) => {
   document.querySelector(".logo h1").style.color = colors.primary;
 
-  listening = false;
+  if (!listening) {
+    recognition.start();
+  } else {
+    return;
+  }
 
-  recognition.start();
-
-  recognition.onresult = (e) => {
-    text = e.results[0][0].transcript;
-    if(!cronus.aboutToSendMsg) {
-      getIntent(text);
-    } else {
-      cronus.sendMsg(text);
-    }
-  };
-  
-  recognition.onstart = () => {
-    console.log("Reconhecimento de voz iniciado...");
-  };
-  
-  recognition.onend = () => {
-    console.log("Ended trying to recognize");
-    document.querySelector(".logo h1").style.color = "#aaa";
-    cronus.aboutToSendMsg = false;
-  };
-  
-  recognition.onerror = (err) => {
-    console.log(err);
-    cronus.aboutToSendMsg = false;
-  };
-  
+  listening = true;
 };
 
 document.getElementById("form-chat").addEventListener("submit", (e) => {
