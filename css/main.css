@@ -13,6 +13,7 @@ a {
   text-decoration: none;
   color: var(--primary-color);
   padding: 10px;
+  text-align: center;
 }
 
 p {
@@ -123,6 +124,7 @@ form button {
   font-size: 12px;
   margin-top: 20px;
   width: 340px;
+  padding: 10px;
 }
 
 #speech {
