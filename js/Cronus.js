@@ -109,7 +109,7 @@ class Cronus {
 
     if (data.intent === "rent.house") {
       if (data.houses.length !== 0) {
-        this.speech.text = `Abaixo a lista de casas (${data.houses.length}).`;
+        this.speech.text = `Abaixo a lista de casas.`;
         setSpeech(this.speech.text);
         this.speak(this.speech);
         let tecnicos = new String();
@@ -130,7 +130,7 @@ class Cronus {
       }
 
       if (data.techs.length !== 0) {
-        this.speech.text = `Abaixo a lista dos técnicos de ${data.tech_area.label} (${data.tech_area.length}).`;
+        this.speech.text = `Abaixo a lista dos técnicos de ${data.tech_area.label}.`;
         let tecnicos = new String();
         for (let tecnico of data.techs) {
           tecnicos += `<a href='tel:${tecnico.tel}'><p>${tecnico.name} (${tecnico.bairro})</p></a>`;
