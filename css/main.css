@@ -128,6 +128,7 @@ form button {
 #speech {
   font-weight: bolder;
   color: var(--primary-color);
+  text-align: center;
 }
 
 #text span {

@@ -33,7 +33,10 @@ recognition.onerror = (err) => {
 };
 
 setInterval(() => {
-  if (!listening && api_on) {
+  let condition = !listening && api_on;
+  condition = false;
+
+  if (condition) {
     console.log('L &', api_on)
     recognition.start();
     document.querySelector(".logo h1").style.color = colors.primary;
