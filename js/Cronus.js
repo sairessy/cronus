@@ -19,7 +19,7 @@ class Cronus {
       setTimeout(() => {
         document.getElementById(
           "text"
-        ).innerHTML = `Tocando <span>${music.title}</span> de <span>${music.author}</span>`;
+        ).innerHTML = `<span>${music.title}</span> de <span>${music.author}</span>`;
         this.audio.play();
       }, 3000);
     };
@@ -88,7 +88,7 @@ class Cronus {
       this.audio.play();
       document.getElementById(
         "text"
-      ).innerHTML = `Tocando <span>${music.title}</span> de <span>${music.author}</span>`;
+      ).innerHTML = `<span>${music.title}</span> de <span>${music.author}</span>`;
       return;
     }
 
@@ -114,7 +114,7 @@ class Cronus {
         this.speak(this.speech);
         let tecnicos = new String();
         for (let house of data.houses) {
-          tecnicos += `<p><a href='tel:+258${house.tel}'>(+258) ${house.tel}</a> Bairro: ${house.bairro} Quartos: ${
+          tecnicos += `<p><a href='tel:+258${house.tel}'>(+258) ${house.tel}</a> ${house.bairro.toUpperCase()} Quartos: ${
             house.quartos
           } Garragem: ${house.garagem > 0 ? "Sim" : "Não"}</p>`;
         }

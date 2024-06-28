@@ -4,27 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRONUS</title>
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <header>
       <a id="a-dashboard" href="#">
-        <img width="25" height="25" src="./assets/user.svg" alt="bars" />
+        <img width="20" height="20" src="./assets/user.svg" alt="bars" />
       </a>
-      <nav>
-        <a href="#">Home</a>
-        <a href="#">Dashboard</a>
-        <a href="#">Configurações</a>
-        <a href="#">Contactos</a>
-      </nav>
     </header>
     <main>
-      <div class="logo">
-        <h1>CRONUS</h1>
+      <div class="logo-container">
+        <div class="logo">
+          <img src="assets/logo.svg" width="30" height="30" />
+          <h1>CRONUS</h1>
+        </div>
         <form id="form-chat">
           <input id="inp-text" type="text" placeholder="Seu texto..." />
-          <button type="submit">OK</button>
+          <button id="btn-submit" type="submit">OK</button>
         </form>
+      </div>
+      <div id="suggestions">
+        <button>Toca uma música</button>
+        <button>Me encontre uma casa</button>
+        <button>Desliga a música</button>
+        <button>Me encontre um tecnico electricista</button>
       </div>
       <p id="speech"></p>
       <p id="text"></p>

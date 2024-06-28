@@ -57,5 +57,11 @@ function setSpeech(text) {
 }
 
 function clearResult() {
-  document.getElementById("text").innerText = '';
+  document.getElementById("text").innerText = "";
 }
+
+document.querySelectorAll("#suggestions button").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    getIntent(e.target.innerText);
+  });
+});

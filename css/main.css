@@ -1,7 +1,9 @@
 :root {
   --header-height: 30px;
+  --footer-height: 50px;
   /* --primary-color: #c7383f; */
-  --primary-color: #9f34c0;
+  /* --primary-color: #9f34c0; */
+  --primary-color: #6495ed;
 }
 
 * {
@@ -16,6 +18,10 @@ a {
   text-align: center;
 }
 
+a:hover {
+  text-decoration-line: underline;
+}
+
 p {
   margin-bottom: 5px;
 }
@@ -28,8 +34,8 @@ p {
   background-color: #eee;
   outline: none;
   border: none;
-  width: 40px;
-  height: 40px;
+  /* width: 40px;
+  height: 40px; */
   border-radius: 100%;
 }
 
@@ -48,7 +54,7 @@ body {
 }
 
 header {
-  padding: 20px;
+  padding: 10px;
   height: var(--header-height);
   display: flex;
   align-items: center;
@@ -59,8 +65,8 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 50px;
-  min-height: calc(100vh - 200px);
+  /* background-color: red; */
+  height: calc(100vh - var(--header-height) - var(--footer-height) - 21px);
 }
 
 footer {
@@ -69,21 +75,39 @@ footer {
   align-items: center;
   justify-content: center;
   border-top: 1px solid #eee;
-  padding: 20px;
+  padding: 10px;
+  height: var(--header-height);
 }
 
 footer p {
   color: #888;
   margin-bottom: 5px;
+  text-align: center;
+}
+
+.logo-container {
+  width: fit-content;
 }
 
 .logo {
-  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  margin-right: 10px;
 }
 
 h1 {
   color: #aaa;
   text-align: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 5px;
 }
 
 form {
@@ -110,7 +134,7 @@ form input:focus {
   border-color: var(--primary-color);
 }
 
-form button {
+form #btn-submit {
   position: absolute;
   background-color: var(--primary-color);
   color: #fff;
@@ -120,12 +144,40 @@ form button {
   border-radius: 5px;
 }
 
-#text, #speech {
+#suggestions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#suggestions button {
+  margin: auto 5px;
+  background-color: #eee;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #444;
+  font-size: 12px;
+}
+
+#suggestions button:active {
+  background-color: #ddd;
+}
+
+#text,
+#speech {
   font-size: 12px;
   margin-top: 20px;
   width: 340px;
   padding: 10px 30px;
 }
+
+#text {
+  height: 300px;
+}
+
+/* #text:hover {
+  overflow-y: scroll;
+} */
 
 #speech {
   font-weight: bolder;
@@ -156,7 +208,8 @@ form button {
     width: 280px;
   }
 
-  #text, #speech {
+  #text,
+  #speech {
     width: auto;
   }
 }
