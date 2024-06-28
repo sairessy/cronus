@@ -1,6 +1,7 @@
 :root {
   --header-height: 30px;
-  --primary-color: #c7383f;
+  /* --primary-color: #c7383f; */
+  --primary-color: #9f34c0;
 }
 
 * {
@@ -12,33 +13,23 @@ a {
   text-decoration: none;
   color: var(--primary-color);
   padding: 10px;
-  border-bottom: 1px solid #fff;
-  font-weight: bold;
-  transition: all 0.3s ease-in-out;
-  margin: 0;
 }
 
-a:hover {
-  border-bottom: 1px solid var(--primary-color);
+p {
+  margin-bottom: 5px;
 }
 
-#btn-bars {
+#a-dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
-  background-color: none;
+  background-color: #eee;
   outline: none;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
-}
-
-#btn-bars:hover {
-  background-color: #eee;
-  cursor: pointer;
-}
-
-#btn-bars:active {
-  background-color: #ddd;
 }
 
 nav {
@@ -128,10 +119,15 @@ form button {
   border-radius: 5px;
 }
 
-#text {
+#text, #speech {
   font-size: 12px;
   margin-top: 20px;
-  width: 300px;
+  width: 340px;
+}
+
+#speech {
+  font-weight: bolder;
+  color: var(--primary-color);
 }
 
 #text span {

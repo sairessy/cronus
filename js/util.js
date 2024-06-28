@@ -30,7 +30,6 @@ const getUserContacts = async () => {
 let api_on = false;
 
 async function wakeupAPI() {
-
   let num_fails = 0;
 
   while (!api_on && num_fails < 10) {
@@ -51,4 +50,12 @@ async function wakeupAPI() {
   if (num_fails >= 10) {
     alert("Erro no servidor.");
   }
+}
+
+function setSpeech(text) {
+  document.getElementById("speech").innerText = text;
+}
+
+function clearResult() {
+  document.getElementById("text").innerText = '';
 }

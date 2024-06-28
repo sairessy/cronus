@@ -1,6 +1,7 @@
 class Cronus {
   constructor() {
     this.aboutToSendMsg = false;
+    this.listening = false;
     this.speech = new SpeechSynthesisUtterance();
     this.speech.lang = "pt";
     this.speak = (param) => {
@@ -25,8 +26,10 @@ class Cronus {
   }
 
   async act(data) {
+    clearResult();
     if (data.intent === "None") {
       this.speech.text = "Desculpa, não entendi.";
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
@@ -34,12 +37,14 @@ class Cronus {
     if (data.intent === "show.time") {
       const time = new Date().toLocaleTimeString("pt");
       this.speech.text = time;
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
 
     if (data.intent === "show.wether") {
       this.speech.text = "Poderei fazer isso em breve!";
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
@@ -48,18 +53,21 @@ class Cronus {
       const greetings = ["Oi", "Olá"];
       this.speech.text =
         greetings[Math.round(Math.random(greetings.length - 1))];
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
 
     if (data.intent === "thanks") {
       this.speech.text = data.answer;
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
 
     if (data.intent === "tell.joke") {
       this.speech.text = "Brevemente serei capaz de contar anedotas.";
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       return;
     }
@@ -71,6 +79,7 @@ class Cronus {
         this.speech.text = "Tocando uma música.";
       }
 
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       const musics = await getMusics();
       const pos = Math.round(Math.random() * (musics.length - 1));
@@ -85,6 +94,7 @@ class Cronus {
 
     if (data.intent === "stop.music") {
       this.speech.text = "Parando a música.";
+      setSpeech(this.speech.text);
       this.speak(this.speech);
       try {
         this.audio.pause();
@@ -95,6 +105,41 @@ class Cronus {
         console.log(error);
       }
       return;
+    }
+
+    if (data.intent === "rent.house") {
+      if (data.houses.length !== 0) {
+        this.speech.text = `Abaixo a lista de casas (${data.houses.length}).`;
+        setSpeech(this.speech.text);
+        this.speak(this.speech);
+        let tecnicos = new String();
+        for (let house of data.houses) {
+          tecnicos += `<p><a href='tel:+258${house.tel}'>(+258) ${house.tel}</a> Bairro: ${house.bairro} Quartos: ${
+            house.quartos
+          } Garragem: ${house.garagem > 0 ? "Sim" : "Não"}</p>`;
+        }
+        document.getElementById("text").innerHTML = tecnicos;
+      }
+    }
+
+    if ((data.intent = "find.technician")) {
+      this.speech.text = `Ainda não tenho um técnico de ${data.tech_area.label} registado.`;
+
+      if (!data.tech_area) {
+        this.speech.text = `Não tenho técnicos dessa area.`;
+      }
+
+      if (data.techs.length !== 0) {
+        this.speech.text = `Abaixo a lista dos técnicos de ${data.tech_area.label} (${data.tech_area.length}).`;
+        let tecnicos = new String();
+        for (let tecnico of data.techs) {
+          tecnicos += `<a href='tel:${tecnico.tel}'><p>${tecnico.name} (${tecnico.bairro})</p></a>`;
+        }
+        document.getElementById("text").innerHTML = tecnicos;
+      }
+
+      setSpeech(this.speech.text);
+      this.speak(this.speech);
     }
 
     if (data.intent === "send.msg") {
@@ -116,6 +161,7 @@ class Cronus {
 
       if (cts.length === 0) {
         this.speech.text = "Não tens tal contacto na sua lista.";
+        setSpeech(this.speech.text);
         this.speak(this.speech);
       } else {
         console.log(cts);
@@ -138,6 +184,7 @@ class Cronus {
   async sendMsg(text) {
     const data = { contact: this.contact, text };
     this.speech.text = `Enviei uma mensagem a ${data.contact.name}' com o conteudo: ${data.text}`;
+    setSpeech(this.speech.text);
     this.speak(this.speech);
     const res = await fetch(api_url + "/chatbot/send-msg", {
       method: "POST",
