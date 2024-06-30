@@ -6,45 +6,53 @@
     <title>CRONUS</title>
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
     <header>
+      <a href="/" class="logo">
+        <img src="assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <div id="suggestions">
+        <a href="/">Dashboard</a>
+        <a href="/pages/staff/">Staff</a>
+        <a href="/pages/stock/">Stock</a>
+        <a href="/pages/credito/">Crédito</a>
+        <a href="/pages/sales/">Vendas</a>
+      </div>
       <a id="a-dashboard" href="#">
-        <img width="20" height="20" src="./assets/user.svg" alt="bars" />
+        <img width="20" height="20" src="./assets/user.svg" alt="user" />
       </a>
     </header>
     <main>
-      <div class="logo-container">
-        <div class="logo">
-          <img src="assets/logo.svg" width="30" height="30" />
-          <h1>CRONUS</h1>
+
+      <div class="company-name">
+        <p>Dashboard</p>
+      </div>
+
+      <div class="cards">
+        <div class="card-container">
+          <span class="title" style="color: rgb(3, 83, 3);">Crédito</span><span class="content">0.00 MT</span>
         </div>
-        <form id="form-chat">
-          <input id="inp-text" type="text" placeholder="Seu texto..." />
-          <button id="btn-submit" type="submit">OK</button>
-        </form>
+        <div class="card-container">
+          <span class="title" style="color: rgb(145, 6, 6);">Débito</span><span class="content">0.00 MT</span>
+        </div>
       </div>
-      <div id="suggestions">
-        <button>Toca uma música</button>
-        <button>Me encontre uma casa</button>
-        <button>Desliga a música</button>
-        <button>Me encontre um tecnico electricista</button>
-      </div>
-      <p id="speech"></p>
-      <p id="text"></p>
     </main>
     <div id="loader">
       <p>Loading...</p>
     </div>
     <footer>
-      <p>
-        Olá, eu sou CRONUS e tenho o intuito de automatizar tarefas para si.
-      </p>
       <p>CRONUS &copy; 2024</p>
     </footer>
   </body>
   <script src="./js/config.js"></script>
   <script src="./js/util.js"></script>
-  <script src="./js/Cronus.js"></script>
   <script src="./js/main.js"></script>
+  <script>
+    if (localStorage.getItem("user") === null) {
+      window.location.href = "/login";
+    }
+  </script>
 </html>

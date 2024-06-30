@@ -1,9 +1,11 @@
 :root {
   --header-height: 30px;
-  --footer-height: 50px;
+  --footer-height: 70px;
+  --btn-radius: 5px;
+  --main-font: roboto;
   /* --primary-color: #c7383f; */
-  /* --primary-color: #9f34c0; */
-  --primary-color: #6495ed;
+  --primary-color: #9f34c0;
+  /* --primary-color: #6495ed; */
 }
 
 * {
@@ -14,12 +16,13 @@
 a {
   text-decoration: none;
   color: var(--primary-color);
-  padding: 10px;
+  padding: 5px;
   text-align: center;
+  font-size: 12px;
 }
 
 a:hover {
-  text-decoration-line: underline;
+  /* text-decoration-line: underline; */
 }
 
 p {
@@ -50,23 +53,31 @@ nav a:nth-child(1) {
 body {
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--main-font);
+  background-color: #fcfcfc;
 }
 
 header {
-  padding: 10px;
+  padding: 12px 10px;
   height: var(--header-height);
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: space-between;
+  box-shadow: 0 2px 2px #eee;
+  position: sticky;
+  top: 0;
+  background-color: #fffffff1;
+  z-index: 1;
 }
 
 main {
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
   /* background-color: red; */
-  height: calc(100vh - var(--header-height) - var(--footer-height) - 21px);
+  /* height: calc(100vh - var(--header-height) - var(--footer-height) - 25px); */
+  margin-top: 20px;
 }
 
 footer {
@@ -75,14 +86,18 @@ footer {
   align-items: center;
   justify-content: center;
   border-top: 1px solid #eee;
-  padding: 10px;
-  height: var(--header-height);
+  padding: 20px;
+  /* height: var(--header-height); */
 }
 
 footer p {
   color: #888;
   margin-bottom: 5px;
   text-align: center;
+}
+
+label {
+  color: #888;
 }
 
 .logo-container {
@@ -100,37 +115,94 @@ footer p {
 }
 
 h1 {
-  color: #aaa;
+  color: #666;
   text-align: center;
+  font-weight: lighter;
 }
 
 button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: var(--btn-radius);
   outline: none;
   border: none;
-  padding: 5px;
+  padding: 10px;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #eee;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:active {
+  opacity: 0.5;
 }
 
 form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-top: 20px;
+  /* display: flex; */
 }
 
-form input {
-  display: block;
+input {
   font-size: 14px;
   color: #888;
-  padding: 20px 25px;
-  width: 420px;
-  border-radius: 50px;
+  padding: 5px;
+  border-radius: var(--btn-radius);
   border: 1px solid #eee;
-  box-shadow: 0 0 2px 4px #fcfcfc;
   outline: none;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
 }
 
-form input:focus {
+form button {
+  margin-top: 10px;
+}
+
+.main {
+  width: 60%;
+  background-color: #fff;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px solid #eee;
+  padding: 10px;
+}
+
+.main-body {
+  border: 1px solid #eee;
+  border-top: none;
+  padding: 20px;
+  min-height: 200px;
+}
+
+.main-footer {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: none;
+}
+
+.main-header h3 {
+  color: #999;
+  font-weight: lighter;
+}
+
+.main-header a {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: var(--btn-radius);
+}
+
+input:focus {
   border-color: var(--primary-color);
 }
 
@@ -147,47 +219,28 @@ form #btn-submit {
 #suggestions {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
 }
 
-#suggestions button {
+#suggestions a {
   margin: auto 5px;
-  background-color: #eee;
+  background-color: #f0f0f0;
   border-radius: 10px;
   cursor: pointer;
-  color: #444;
-  font-size: 12px;
+  color: var(--primary-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+#suggestions a img {
+  margin-right: 10px;
 }
 
 #suggestions button:active {
   background-color: #ddd;
 }
 
-#text,
-#speech {
-  font-size: 12px;
-  margin-top: 20px;
-  width: 340px;
-  padding: 10px 30px;
-}
-
-#text {
-  height: 300px;
-}
-
-/* #text:hover {
-  overflow-y: scroll;
-} */
-
-#speech {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-align: center;
-}
-
-#text span {
-  color: var(--primary-color);
-}
 
 #loader {
   position: fixed;

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>CRONUS</title>
+  </head>
+  <body>
+    <form>
+      <a href="/" class="logo">
+        <img src="assets/logo.svg" width="30" height="30" />
+        <h1>CRONUS</h1>
+      </a>
+      <label for="email">Email:</label>
+      <input type="email" name="email" required autofocus/>
+      <label for="pass">Senha:</label>
+      <input type="password" name="pass" required/>
+      <button type="submit">Entrar</button>
+    </form>
+  </body>
+
+  <script>
+    if (localStorage.getItem("user") !== null) {
+      window.location.href = "/";
+    }
+
+    document.querySelector("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.querySelector('button');
+      btn.disabled = true;
+      const form = new FormData(e.target);
+      const email = form.get("email");
+      const pass = form.get("pass");
+
+      if (email === "sairessy@gmail.com" && pass === "123") {
+        localStorage.setItem('user', "x");
+        window.location.href = "/";
+      } else {
+        alert("Falha de autenticação.");
+      }
+
+      btn.disabled = false;
+    });
+  </script>
+</html>

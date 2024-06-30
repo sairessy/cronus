@@ -1,80 +1,78 @@
-const cronus = new Cronus();
-let listening = false;
-let text = "";
+let api_on = false;
 
 wakeupAPI();
 
-recognition.onresult = (e) => {
-  document.querySelector(".logo h1").style.color = "#aaa";
-  text = e.results[0][0].transcript;
-  if (!cronus.aboutToSendMsg) {
-    getIntent(text);
-  } else {
-    cronus.sendMsg(text);
-  }
-};
+const nav = [
+  {
+    id: "dashboard",
+    name: "Dashboard",
+    url: "",
+    icon: "chart-pie-solid",
+    show: true,
+  },
+  {
+    id: "staff",
+    name: "Funcionários",
+    url: "pages/staff",
+    icon: "male-solid",
+    show: true,
+  },
+  {
+    id: "stock",
+    name: "Stock",
+    url: "pages/stock",
+    icon: "docker",
+    show: true,
+  },
+  {
+    id: "credito",
+    name: "Microcédito",
+    url: "pages/credito",
+    icon: "coins-solid",
+    show: true,
+  },
+  {
+    id: "asset",
+    name: "Activos & Passivos",
+    url: "pages/asset",
+    icon: "couch-solid",
+    show: true,
+  },
+  {
+    id: "sales",
+    name: "Vendas",
+    url: "pages/sales",
+    icon: "store-alt-solid",
+    show: true,
+  },
+];
 
-recognition.onstart = () => {
-  console.log("Reconhecimento de voz iniciado...");
-};
+let n = "";
 
-recognition.onend = () => {
-  console.log("Ended trying to recognize");
-  listening = false;
-  document.querySelector(".logo h1").style.color = "#aaa";
-  cronus.aboutToSendMsg = false;
-};
+let hasOneActive = false;
 
-recognition.onerror = (err) => {
-  console.log(err);
-  cronus.aboutToSendMsg = false;
-  listening = false;
-  document.querySelector(".logo h1").style.color = "#aaa";
-};
-
-setInterval(() => {
-  let condition = !listening && api_on;
-  condition = false;
-
-  if (condition) {
-    console.log('L &', api_on)
-    recognition.start();
-    document.querySelector(".logo h1").style.color = colors.primary;
-    listening = true;
-  }
-}, 15000);
-
-document.querySelector("body").ondblclick = (e) => {
-  document.querySelector(".logo h1").style.color = colors.primary;
-
-  if (!listening && api_on) {
-    recognition.start();
-  } else {
-    return;
-  }
-
-  listening = true;
-};
-
-document.getElementById("form-chat").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const text = document.getElementById("inp-text").value;
-  getIntent(text);
-  document.getElementById("inp-text").value = "";
-});
-
-async function getIntent(text) {
-  const res = await fetch(api_url + "/chatbot/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      bot: "cronus",
-    },
-    body: JSON.stringify({ text }),
-  });
-
-  if (res.status === 200) {
-    const data = await res.json();
-    cronus.act(data);
+for (let elt of nav) {
+  const { id, name, url, icon, show } = elt;
+  const active = window.location.href.includes(id);
+  hasOneActive = active;
+  if (show) {
+    n += `
+    <a href='${window.location.origin}/${url}' 
+      style='border: ${active ? '1px solid #9f34c0' : 'auto'};'
+    >
+      <img width='20' height='20' src='${window.location.origin}/assets/img/nav/${icon}.svg' />
+      <span>${name}</span>
+    </a>`;
   }
 }
+
+document.getElementById("suggestions").innerHTML = n;
+
+if(window.location.href === window.location.origin + '/') {
+  document.querySelector('#suggestions a').style.border = `1px solid ${colors.primary}`;
+}
+
+document.getElementById('a-dashboard').addEventListener('click', () => {
+  localStorage.removeItem('user');
+  window.location.href = '/login';
+})

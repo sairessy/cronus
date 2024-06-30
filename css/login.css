@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 370px;
+    height: 420px;
+    margin: auto;
+    padding: 30px 20px;
+    /* box-shadow: 0 0 1px 1px #fafafa; */
+    /* border-radius: 15px; */
+}
+
+form label {
+    margin-bottom: 5px;
+}
+
+form input {
+    padding: 10px;
+}
+
+.logo {
+    margin-bottom: 50px;
+}

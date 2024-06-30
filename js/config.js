@@ -4,9 +4,5 @@ const api_url =
     : "http://localhost:8000";
 
 const colors = {
-  primary: "#6495ed",
+  primary: "#9f34c0",
 };
-
-const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-recognition.interimResults = false;
-recognition.continuous = false;
