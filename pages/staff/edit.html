@@ -30,29 +30,112 @@
     <main>
       <div class="main">
         <div class="main-header">
-          <h3>Editar membro do Staff</h3>
+          <h3>Editar colaborador</h3>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
-            <label for="first-name">Nome:</label>
-            <input type="text" name="first-name" id="" />
-            <label for="surname">Sobrenome:</label>
-            <input type="text" name="surname" id="" />
-            <label for="id">BI:</label>
-            <input type="text" name="id" />
-            <label for="tel">Contacto: </label>
-            <input type="tel" name="tel">
-            <label for="birthday">Nascimento: </label>
-            <input type="date" name="birthday" />
-            <label for="contract">Data do contracto: </label>
-            <input type="date" name="contract" />
-            <label for="contract-ends">Duração do contracto: </label>
-            <input type="date" name="contract-ends" />
+            <div class="form">
+              <div class="form-group">
+                <label for="first-name">Nome:</label>
+                <input type="text" name="first-name" id="" autofocus required />
+              </div>
+
+              <div class="form-group">
+                <label for="surname">Sobrenome:</label>
+                <input type="text" name="surname" id="" required/>
+              </div>
+              <div class="form-group">
+                <label for="nivel">Nivel:</label>
+                <select type="text" name="nivel" id="">
+                  <option value="">--Seleccion um--</option>
+                  <option value="0">Básico</option>
+                  <option value="1">Médio</option>
+                  <option value="2">Bacharel</option>
+                  <option value="3">Licenciado</option>
+                  <option value="4">Mestre</option>
+                  <option value="5">PhD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="area-formacao">Area:</label>
+                <select type="text" name="area-formacao" id="">
+                  <option value="">--Seleccione uma--</option>
+                  <option value="0">Matemática & Estatistica</option>
+                  <option value="1">Engenharia</option>
+                  <option value="2">Administração & Gestão</option>
+                  <option value="3">Economia e finaças</option>
+                  <option value="4">Contabilidade e Auditoria</option>
+                  <option value="5">Dirieto</option>
+                  <option value="6">Saúde</option>
+                  <option value="-1">Outro</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="birthday">Nascimento: </label>
+                <input type="date" name="birthday" required />
+              </div>
+              <div class="form-group">
+                <label for="estado-civil">Estado civil: </label>
+                <select name="estado-civil">
+                  <option value="">--Seleccione um--</option>
+                  <option value="0">Solteiro</option>
+                  <option value="1">Casado</option>
+                  <option value="2">Divorciado</option>
+                  <option value="3">Viuvo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dependentes">Depenentes:</label>
+                <input
+                  type="number"
+                  name="dependentes"
+                  class="input-thin"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="id">BI:</label>
+                <input type="text" name="id" />
+              </div>
+              <div class="form-group">
+                <label for="nuit">NUIT:</label>
+                <input type="text" name="nuit" />
+              </div>
+              <div class="form-group">
+                <label for="tel">Telefone: </label>
+                <input type="tel" name="tel" />
+              </div>
+              <div class="form-group">
+                <label for="morada">Morada: </label>
+                <input type="tel" name="morada" />
+              </div>
+              <div class="form-group">
+                <label for="contract">Início do contracto: </label>
+                <input type="date" name="contract" />
+              </div>
+              <div class="form-group">
+                <label for="contract-ends">Fim do contracto: </label>
+                <input type="date" name="contract-ends" />
+              </div>
+              <div class="form-group">
+                <label for="salario">Salário: </label>
+                <input type="number" name="salario" id="" min="1000" />
+              </div>
+              <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select type="text" name="categoria" id=""></select>
+                <span class="btn-circle"></span>
+              </div>
+            </div>
           </form>
         </div>
         <div class="main-footer">
           <button type="submit" form="form-new-staff">Salvar</button>
         </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
       </div>
     </main>
     <footer>
@@ -62,7 +145,12 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/staff/index.js"></script>
   <script>
+    const url = new URL(window.location.href);
+    const staff = url.searchParams.get('s');
+    console.log(staff)
+
     document
       .getElementById("form-new-staff")
       .addEventListener("submit", async (e) => {
@@ -75,7 +163,14 @@
         const contract = form.get("contract");
         const contractEnds = form.get("contract-ends");
         const id = form.get("id");
+        const nuit = form.get("nuit");
         const tel = form.get("tel");
+        const salario = form.get("salario");
+        const estadoCivil = form.get("estado-civil");
+        const areaFormacao = form.get("area-formacao");
+        const dependentes = form.get("dependentes");
+        const nivel = form.get("nivel");
+        const categoria = form.get('categoria');
 
         const data = {
           firstName,
@@ -83,11 +178,17 @@
           birthday,
           contract,
           contractEnds,
-          tel
+          tel,
+          salario,
+          estadoCivil,
+          areaFormacao,
+          dependentes,
+          nivel,
+          categoria
         };
 
-        const res = await fetch(api_url + '/cronus/staff/create', {
-          method: 'POST',
+        const res = await fetch(api_url + "/cronus/staff/create", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
@@ -95,8 +196,8 @@
           body: JSON.stringify(data),
         });
 
-        if(res.status === 200) {
-            alert('Gravado com sucesso.')
+        if (res.status === 200) {
+          alert("Gravado com sucesso.");
         }
       });
   </script>

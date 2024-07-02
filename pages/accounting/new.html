@@ -30,29 +30,38 @@
     <main>
       <div class="main">
         <div class="main-header">
-          <h3>Editar membro do Staff</h3>
+          <h3>Cadastrar novo item ao stock</h3>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
-            <label for="first-name">Nome:</label>
-            <input type="text" name="first-name" id="" />
-            <label for="surname">Sobrenome:</label>
-            <input type="text" name="surname" id="" />
-            <label for="id">BI:</label>
-            <input type="text" name="id" />
-            <label for="tel">Contacto: </label>
-            <input type="tel" name="tel">
-            <label for="birthday">Nascimento: </label>
-            <input type="date" name="birthday" />
-            <label for="contract">Data do contracto: </label>
-            <input type="date" name="contract" />
-            <label for="contract-ends">Duração do contracto: </label>
-            <input type="date" name="contract-ends" />
+            <div class="form">
+              <div class="form-group">
+                <label for="desc">Nome:</label>
+                <input type="text" name="desc" id="" />
+              </div>
+              <div class="form-group">
+                <label for="valor">Valor: </label>
+                <input type="number" name="valor" id="" />
+              </div>
+              <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select type="text" name="categoria" id=""></select>
+                <button class="btn-circle"></button>
+              </div>
+              <div class="form-group">
+                <label for="validade">Validade: </label>
+                <input type="date" name="validade" />
+              </div>
+            </div>
           </form>
         </div>
         <div class="main-footer">
           <button type="submit" form="form-new-staff">Salvar</button>
         </div>
+      </div>
+
+      <div id="loader">
+        <p>Loading...</p>
       </div>
     </main>
     <footer>
@@ -62,6 +71,7 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/stock/index.js"></script>
   <script>
     document
       .getElementById("form-new-staff")
@@ -69,25 +79,20 @@
         e.preventDefault();
         const form = new FormData(e.target);
 
-        const firstName = form.get("first-name");
-        const surname = form.get("surname");
-        const birthday = form.get("birthday");
-        const contract = form.get("contract");
-        const contractEnds = form.get("contract-ends");
-        const id = form.get("id");
-        const tel = form.get("tel");
+        const desc = form.get("desc");
+        const valor = form.get("valor");
+        const categoria = form.get("categoria");
+        const validade = form.get("validade");
 
         const data = {
-          firstName,
-          surname,
-          birthday,
-          contract,
-          contractEnds,
-          tel
+          desc,
+          valor,
+          categoria,
+          validade,
         };
 
-        const res = await fetch(api_url + '/cronus/staff/create', {
-          method: 'POST',
+        const res = await fetch(api_url + "/cronus/stock/create", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             user: localStorage.getItem("user"),
@@ -95,8 +100,8 @@
           body: JSON.stringify(data),
         });
 
-        if(res.status === 200) {
-            alert('Gravado com sucesso.')
+        if (res.status === 200) {
+          alert("Gravado com sucesso.");
         }
       });
   </script>

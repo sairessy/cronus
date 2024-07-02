@@ -26,17 +26,18 @@
       </a>
     </header>
     <main>
-
       <div class="company-name">
-        <p>Dashboard</p>
+        <p>Cronus, inc</p>
       </div>
 
       <div class="cards">
         <div class="card-container">
-          <span class="title" style="color: rgb(3, 83, 3);">Crédito</span><span class="content">0.00 MT</span>
+          <span class="title">Activos</span
+          ><span class="content" style="color: #78ee9b;">0.00</span>
         </div>
         <div class="card-container">
-          <span class="title" style="color: rgb(145, 6, 6);">Débito</span><span class="content">0.00 MT</span>
+          <span class="title">Passivos</span
+          ><span class="content" style="color: #ff2430;">0.00</span>
         </div>
       </div>
     </main>
@@ -52,7 +53,7 @@
   <script src="./js/main.js"></script>
   <script>
     if (localStorage.getItem("user") === null) {
-      window.location.href = "/login";
+      window.location.href = base_url + "/login";
     }
   </script>
 </html>

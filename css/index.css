@@ -23,9 +23,9 @@
 
 .card-container {
   height: 150px;
-  background: url(../assets/img/charts/chart-bar.svg) no-repeat center
-    center/contain;
-  background-color: #eee;
+  background: url(../assets/img/charts/dollar-sign-solid.svg) no-repeat 30px
+    center/50px;
+  background-color: #fff;
   flex: 100%;
   width: 100%;
   margin: 5px;
@@ -44,10 +44,10 @@
   top: 10px;
   left: 10px;
   font-size: 18px;
-  font-weight: bold;
+  /* color: #eee; */
 }
 
 .card-container .content {
-  font-size: 48px;
-  color: #888;
+  font-size: 32px;
+  color: #222;
 }

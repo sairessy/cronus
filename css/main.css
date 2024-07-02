@@ -3,9 +3,10 @@
   --footer-height: 70px;
   --btn-radius: 5px;
   --main-font: roboto;
-  /* --primary-color: #c7383f; */
-  --primary-color: #9f34c0;
-  /* --primary-color: #6495ed; */
+  --color-danger: #ff2430;
+  --secondary-color: #9f34c0;
+  --primary-color: #6495ed;
+  --light-green: #78ee9b;
 }
 
 * {
@@ -96,10 +97,6 @@ footer p {
   text-align: center;
 }
 
-label {
-  color: #888;
-}
-
 .logo-container {
   width: fit-content;
 }
@@ -147,7 +144,7 @@ form {
   /* display: flex; */
 }
 
-input {
+input, select {
   font-size: 14px;
   color: #888;
   padding: 5px;
@@ -181,6 +178,8 @@ form button {
   border-top: none;
   padding: 20px;
   min-height: 200px;
+  /* overflow-y: scroll; */
+  /* overflow-x: scroll; */
 }
 
 .main-footer {
@@ -202,7 +201,7 @@ form button {
   border-radius: var(--btn-radius);
 }
 
-input:focus {
+input:focus, select:focus {
   border-color: var(--primary-color);
 }
 
@@ -214,6 +213,25 @@ form #btn-submit {
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+label {
+  color: #888;
+}
+
+.form-group label {
+  margin-right: 10px;
 }
 
 #suggestions {
@@ -254,6 +272,68 @@ form #btn-submit {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.btn-new {
+  padding-left: 30px;
+  background: url(../assets/img/plus-circle-solid.svg) no-repeat 10px center/20px;
+  min-width: 70px;
+}
+
+.btn-circle {
+  min-width: unset;
+  width: 25px;
+  height: 25px;
+  margin: auto;
+  margin-left: 10px;
+  border-radius: 100%;
+  background: url(../assets/img/plus-circle-solid.svg) no-repeat center center/20px;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn-circle:hover {
+  opacity: .9;
+}
+
+.btn-circle:active {
+  opacity: .7;
+}
+
+.btn-circle-delete {
+  background-color: var(--color-danger);
+  background-image: url(../assets/img/trash-solid.svg);
+}
+
+.btn-circle-edit {
+  /* background-color: var(--color-danger); */
+  background-image: url(../assets/img/edit.svg);
+}
+
+.input-thin {
+  width: 70px;
+}
+
+table {
+  margin: auto;
+}
+
+thead {
+  background-color: #eee;
+  padding: 10px;
+}
+
+tbody {
+  background-color: #fcfcfc;
+  color: #666;
+}
+
+th {
+  padding: 5px 10px;
+}
+
+td {
+  padding: 10px;
 }
 
 @media (max-width: 768px) {

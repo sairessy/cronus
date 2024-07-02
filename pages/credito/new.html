@@ -30,23 +30,46 @@
     <main>
       <div class="main">
         <div class="main-header">
-          <h3>Cadastrar novo activo</h3>
+          <h3>Conceder crédito</h3>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
             <div class="form">
               <div class="form-group">
-                <label for="desc">Nome:</label>
-                <input type="text" name="desc" id="" />
+                <label for="first-name">Nome:</label>
+                <input type="text" name="first-name" id="" autofocus />
               </div>
               <div class="form-group">
-                <label for="valor">Valor: </label>
-                <input type="number" name="valor" id="" />
+                <label for="surname">Sobrenome:</label>
+                <input type="text" name="surname" id="" />
               </div>
               <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <select type="text" name="categoria" id=""></select>
-                <button class="btn-circle"></button>
+                <label for="id">BI:</label>
+                <input type="text" name="id" />
+              </div>
+              <div class="form-group">
+                <label for="tel">Contacto: </label>
+                <input type="tel" name="tel" />
+              </div>
+              <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input name="bairro" id="select-bairro" />
+              </div>
+              <div class="form-group">
+                <label for="contract">Data: </label>
+                <input type="date" name="contract" />
+              </div>
+              <div class="form-group">
+                <label for="contract-ends">Limite: </label>
+                <input type="date" name="contract-ends" />
+              </div>
+              <div class="form-group">
+                <label for="valor-emprestimo">Valor do emprestimo: </label>
+                <input type="number" name="valor-emprestimo" id="" />
+              </div>
+              <div class="form-group">
+                <label for="taxa-juro">Taxa de juro (%): </label>
+                <input type="number" name="taxa-juro" id="" />
               </div>
             </div>
           </form>
@@ -67,7 +90,6 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/asset/index.js"></script>
   <script>
     document
       .getElementById("form-new-staff")
@@ -75,18 +97,29 @@
         e.preventDefault();
         const form = new FormData(e.target);
 
-        const desc = form.get("desc");
-        const valor = form.get("valor");
-        const categoria = form.get("categoria");
-        const validade = form.get("validade");
+        const firstName = form.get("first-name");
+        const surname = form.get("surname");
+        const dataEmprestimo = form.get("contract");
+        const dataLimite = form.get("contract-ends");
+        const id = form.get("id");
+        const tel = form.get("tel");
+        const valor = form.get("valor-emprestimo");
+        const taxaJuro = form.get("taxa-juro");
+        const bairro = form.get("bairro");
 
         const data = {
-          desc,
+          firstName,
+          surname,
+          dataEmprestimo,
+          dataLimite,
+          id,
+          tel,
           valor,
-          categoria,
+          taxaJuro,
+          bairro,
         };
 
-        const res = await fetch(api_url + "/cronus/asset/create", {
+        const res = await fetch(api_url + "/cronus/credito/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

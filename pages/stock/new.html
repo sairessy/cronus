@@ -30,7 +30,7 @@
     <main>
       <div class="main">
         <div class="main-header">
-          <h3>Cadastrar novo activo</h3>
+          <h3>Cadastrar novo item ao stock</h3>
         </div>
         <div class="main-body">
           <form id="form-new-staff">
@@ -47,6 +47,10 @@
                 <label for="categoria">Categoria:</label>
                 <select type="text" name="categoria" id=""></select>
                 <button class="btn-circle"></button>
+              </div>
+              <div class="form-group">
+                <label for="validade">Validade: </label>
+                <input type="date" name="validade" />
               </div>
             </div>
           </form>
@@ -67,7 +71,7 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/asset/index.js"></script>
+  <script src="../../js/stock/index.js"></script>
   <script>
     document
       .getElementById("form-new-staff")
@@ -84,9 +88,10 @@
           desc,
           valor,
           categoria,
+          validade,
         };
 
-        const res = await fetch(api_url + "/cronus/asset/create", {
+        const res = await fetch(api_url + "/cronus/stock/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
