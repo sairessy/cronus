@@ -10,6 +10,13 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -129,13 +136,17 @@
                   name="categoria"
                   id="select-categoria"
                 ></select>
-                <span class="btn-circle" id="btn-add-categoria"></span>
+                <span class="btn-circle" id="btn-add-categoria"
+                  ><i class="la la-plus-circle"></i
+                ></span>
               </div>
             </div>
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff">Salvar</button>
+          <button type="submit" form="form-new-staff" id="btn-submit">
+            Salvar
+          </button>
         </div>
       </div>
 
@@ -156,6 +167,7 @@
       .getElementById("form-new-staff")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
+        document.querySelector("#btn-submit").disabled = true;
         const form = new FormData(e.target);
 
         const firstName = form.get("first-name");
@@ -202,9 +214,10 @@
             icon: "success",
             title: "Gravado com sucesso",
           }).then(() => {
-            window.location.reload();
-          })
+            e.target.reset();
+          });
         }
+        document.querySelector("#btn-submit").disabled = false;
       });
 
     //

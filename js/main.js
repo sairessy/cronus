@@ -1,7 +1,3 @@
-let api_on = false;
-
-wakeupAPI();
-
 const nav = [
   {
     id: "dashboard",
@@ -27,7 +23,7 @@ const nav = [
 
   {
     id: "stock",
-    name: "Stock",
+    name: "Inventário",
     path: "pages/stock",
     icon: "docker",
     show: true,
@@ -37,7 +33,7 @@ const nav = [
     name: "POS",
     path: "pages/sales",
     icon: "store-alt-solid",
-    show: true,
+    show: false,
   },
   {
     id: "accounting",
@@ -83,5 +79,5 @@ if (window.location.href === window.location.origin + "/") {
 
 document.getElementById("a-dashboard").addEventListener("click", () => {
   localStorage.removeItem("user");
-  window.location.href = "/login";
+  window.location.href = "/login.html";
 });

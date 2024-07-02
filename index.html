@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRONUS</title>
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/index.css" />
   </head>
@@ -32,12 +40,22 @@
 
       <div class="cards">
         <div class="card-container">
-          <span class="title">Activos</span
-          ><span class="content" style="color: #78ee9b;">0.00</span>
+          <span class="title">Activos</span>
+          <div class="content" style="color: #78ee9b">
+            <span
+              class="counter"
+              style="--from: 420; --to: 500; --time: 2s"
+            ></span>
+          </div>
         </div>
         <div class="card-container">
-          <span class="title">Passivos</span
-          ><span class="content" style="color: #ff2430;">0.00</span>
+          <span class="title">Passivos</span>
+          <span class="content" style="color: #ff2430"
+            ><span
+              class="counter"
+              style="--from: 50; --to: 100; --time: 2s"
+            ></span
+          ></span>
         </div>
       </div>
     </main>
@@ -53,7 +71,7 @@
   <script src="./js/main.js"></script>
   <script>
     if (localStorage.getItem("user") === null) {
-      window.location.href = base_url + "/login";
+      window.location.href = base_url + "/login.html";
     }
   </script>
 </html>

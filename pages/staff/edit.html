@@ -9,6 +9,14 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -37,12 +45,12 @@
             <div class="form">
               <div class="form-group">
                 <label for="first-name">Nome:</label>
-                <input type="text" name="first-name" id="" autofocus required />
+                <input type="text" name="first-name" id="first-name" autofocus required />
               </div>
 
               <div class="form-group">
                 <label for="surname">Sobrenome:</label>
-                <input type="text" name="surname" id="" required/>
+                <input type="text" name="surname" id="" required />
               </div>
               <div class="form-group">
                 <label for="nivel">Nivel:</label>
@@ -124,7 +132,7 @@
               <div class="form-group">
                 <label for="categoria">Categoria:</label>
                 <select type="text" name="categoria" id=""></select>
-                <span class="btn-circle"></span>
+                <span class="btn-circle"><i class="la la-plus-circle"></i></span>
               </div>
             </div>
           </form>
@@ -145,11 +153,31 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/staff/index.js"></script>
+  <!-- <script src="../../js/staff/index.js"></script> -->
   <script>
     const url = new URL(window.location.href);
-    const staff = url.searchParams.get('s');
-    console.log(staff)
+    const staff = url.searchParams.get("col");
+
+    getStaff()
+
+    async function getStaff() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/staff/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        const col = data.find(({ _id }) => _id === staff);
+        const {firstName} = col;
+        document.querySelector('#first-name').value = firstName;
+      }
+    }
 
     document
       .getElementById("form-new-staff")
@@ -170,7 +198,7 @@
         const areaFormacao = form.get("area-formacao");
         const dependentes = form.get("dependentes");
         const nivel = form.get("nivel");
-        const categoria = form.get('categoria');
+        const categoria = form.get("categoria");
 
         const data = {
           firstName,
@@ -184,7 +212,7 @@
           areaFormacao,
           dependentes,
           nivel,
-          categoria
+          categoria,
         };
 
         const res = await fetch(api_url + "/cronus/staff/create", {

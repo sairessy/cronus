@@ -9,6 +9,14 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+    integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -29,10 +37,15 @@
     <main>
       <div class="main">
         <div class="main-header">
-          <h3>Stock</h3>
-          <a href="./stock/new.html" class="btn-new">Novo</a>
+          <h3>Inventario</h3>
+          <a href="new.html" class="btn-new">Novo</a>
         </div>
-        <div class="main-body"></div>
+        <div class="main-body">
+          <table width="100%">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
         <div class="main-footer"></div>
       </div>
     </main>
@@ -43,4 +56,5 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/stock/index.js"></script>
 </html>

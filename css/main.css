@@ -1,11 +1,39 @@
+/*  */
+
+@property --from {
+  syntax: '<integer>';
+  initial-value: 0;
+  inherits: false;
+}
+
+.counter {
+  transition: --from 1s;
+  counter-reset: int var(--from);
+  animation: counter var(--time, 1000) forwards ease-in-out;
+}
+
+.counter::after {
+  content: counter(int);
+}
+
+@keyframes counter {
+  to {
+    --from: var(--to, 100);
+  }
+}
+
+
+/*  */
+
 :root {
   --header-height: 30px;
   --footer-height: 70px;
   --btn-radius: 5px;
   --main-font: roboto;
   --color-danger: #ff2430;
-  --secondary-color: #9f34c0;
+  /* --secondary-color: #9f34c0; */
   --primary-color: #6495ed;
+  --primary-color: #9f34c0;
   --light-green: #78ee9b;
 }
 
@@ -67,7 +95,7 @@ header {
   box-shadow: 0 2px 2px #eee;
   position: sticky;
   top: 0;
-  background-color: #fffffff1;
+  background-color: #fffffff8;
   z-index: 1;
 }
 
@@ -160,7 +188,7 @@ form button {
 }
 
 .main {
-  width: 60%;
+  width: 70%;
   background-color: #fff;
 }
 
@@ -243,7 +271,7 @@ label {
 #suggestions a {
   margin: auto 5px;
   background-color: #f0f0f0;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   color: var(--primary-color);
   font-size: 14px;
@@ -287,9 +315,16 @@ label {
   margin: auto;
   margin-left: 10px;
   border-radius: 100%;
-  background: url(../assets/img/plus-circle-solid.svg) no-repeat center center/20px;
   background-color: var(--primary-color);
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+i {
+  pointer-events: none;
+  color: #fff;
 }
 
 .btn-circle:hover {
@@ -302,12 +337,10 @@ label {
 
 .btn-circle-delete {
   background-color: var(--color-danger);
-  background-image: url(../assets/img/trash-solid.svg);
 }
 
 .btn-circle-edit {
-  /* background-color: var(--color-danger); */
-  background-image: url(../assets/img/edit.svg);
+  background-color: var(--primary-color);
 }
 
 .input-thin {
@@ -332,17 +365,9 @@ th {
   padding: 5px 10px;
 }
 
+
+
 td {
   padding: 10px;
 }
 
-@media (max-width: 768px) {
-  form input {
-    width: 280px;
-  }
-
-  #text,
-  #speech {
-    width: auto;
-  }
-}

@@ -7,10 +7,11 @@ const api_url =
 const base_url =
   window.location.protocol === "https:"
     ? window.location.origin
-    : "http://localhost:3000";
+    : "http://localhost:80";
 
 const colors = {
-  primary: "#6495ed",
+  secondary: "#6495ed",
+  primary: "#9f34c0"
 };
 
 const grade_levels = [

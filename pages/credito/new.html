@@ -9,6 +9,7 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -75,7 +76,7 @@
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff">Salvar</button>
+          <button type="submit" form="form-new-staff" id="btn-submit">Salvar</button>
         </div>
       </div>
 
@@ -95,6 +96,7 @@
       .getElementById("form-new-staff")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
+        document.querySelector('#btn-submit').disabled = true;
         const form = new FormData(e.target);
 
         const firstName = form.get("first-name");
@@ -129,8 +131,14 @@
         });
 
         if (res.status === 200) {
-          alert("Gravado com sucesso.");
+          Toast.fire({
+            icon: "success",
+            title: "Gravado com sucesso",
+          }).then(() => {
+            e.target.reset();
+          })
         }
+        document.querySelector('#btn-submit').disabled = false;
       });
   </script>
 </html>

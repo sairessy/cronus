@@ -9,6 +9,14 @@
       href="../../assets/logo.svg"
       type="image/x-icon"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+      integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../../css/main.css" />
   </head>
   <body>
@@ -33,11 +41,11 @@
           <h3>Cadastrar novo activo</h3>
         </div>
         <div class="main-body">
-          <form id="form-new-staff">
+          <form id="form-new-asset">
             <div class="form">
               <div class="form-group">
                 <label for="desc">Nome:</label>
-                <input type="text" name="desc" id="" />
+                <input type="text" name="desc" id="" required />
               </div>
               <div class="form-group">
                 <label for="valor">Valor: </label>
@@ -45,14 +53,22 @@
               </div>
               <div class="form-group">
                 <label for="categoria">Categoria:</label>
-                <select type="text" name="categoria" id=""></select>
-                <button class="btn-circle"></button>
+                <select
+                  type="text"
+                  name="categoria"
+                  id="select-categoria"
+                ></select>
+                <button class="btn-circle" id="btn-add-categoria">
+                  <i class="la la-plus-circle"></i>
+                </button>
               </div>
             </div>
           </form>
         </div>
         <div class="main-footer">
-          <button type="submit" form="form-new-staff">Salvar</button>
+          <button type="submit" form="form-new-asset" id="btn-submit">
+            Salvar
+          </button>
         </div>
       </div>
 
@@ -67,12 +83,14 @@
   <script src="../../js/config.js"></script>
   <script src="../../js/util.js"></script>
   <script src="../../js/main.js"></script>
-  <script src="../../js/asset/index.js"></script>
+  <!-- <script src="../../js/asset/index.js"></script> -->
   <script>
     document
-      .getElementById("form-new-staff")
+      .getElementById("form-new-asset")
       .addEventListener("submit", async (e) => {
         e.preventDefault();
+        document.querySelector("#btn-submit").disabled = true;
+
         const form = new FormData(e.target);
 
         const desc = form.get("desc");
@@ -96,8 +114,65 @@
         });
 
         if (res.status === 200) {
-          alert("Gravado com sucesso.");
+          Toast.fire({
+            icon: "success",
+            title: "Gravado com sucesso",
+          }).then(() => {
+            e.target.reset();
+          });
+        }
+
+        document.querySelector("#btn-submit").disabled = false;
+      });
+
+    //
+
+    document
+      .querySelector("#btn-add-categoria")
+      .addEventListener("click", async (e) => {
+        e.preventDefault();
+        const categoria = prompt("Nome da categoria:");
+
+        if (categoria) {
+          const res = await fetch(api_url + "/cronus/asset/categoria/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              user: localStorage.getItem("user"),
+            },
+            body: JSON.stringify({ label: categoria }),
+          });
+
+          if (res.status === 200) {
+            getCategorias();
+            alert("Gravado com sucesso.");
+          }
         }
       });
+
+    getCategorias();
+
+    async function getCategorias() {
+      let trows = "";
+
+      const res = await fetch(api_url + "/cronus/asset/categoria", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          user: localStorage.getItem("user"),
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        let options = new String();
+        for (c of data) {
+          const { _id, label } = c;
+          options += `<option value='${_id}'>${label}</option>`;
+        }
+        document.getElementById("select-categoria").innerHTML = options;
+      }
+    }
   </script>
 </html>
