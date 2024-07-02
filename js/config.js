@@ -6,7 +6,7 @@ const api_url =
 // For test on github host /cronus
 const base_url =
   window.location.protocol === "https:"
-    ? "https://sairessy.github.io/cronus"
+    ? window.location.origin
     : "http://localhost:3000";
 
 const colors = {
